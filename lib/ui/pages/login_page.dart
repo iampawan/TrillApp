@@ -1,35 +1,31 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:trillapp/ui/pages/home_page.dart';
-import 'package:trillapp/utils/constants.dart';
+import 'index.dart';
 
-class LoginPage extends StatelessWidget {
-  final nameController = TextEditingController();
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
+class LP extends StatelessWidget {
+  final nC = TextEditingController();
+  final sK = GlobalKey<ScaffoldState>();
 
-  startApp(BuildContext context) {
-    if (nameController.text.isNotEmpty) {
-      Constants.prefs.setBool("loggedIn", true);
-      Constants.prefs.setString("name", nameController.text);
-      Constants.userName = nameController.text;
-      Navigator.pushReplacementNamed(context, HomePage.route);
+  start(cx) {
+    if (nC.text.isNotEmpty) {
+      Const.prefs.setBool("logged", true);
+      Const.prefs.setString("name", nC.text);
+      Const.un = nC.text;
+      Navigator.pushReplacementNamed(cx, HP.route);
     } else {
-      _scaffoldKey.currentState.showSnackBar(SnackBar(
-        content: Text("Please enter name first"),
+      sK.currentState.showSnackBar(SnackBar(
+        content: Text("Enter name first"),
       ));
     }
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(cx) {
     var colors = List.from(Colors.primaries);
     colors.shuffle();
     return Scaffold(
-      key: _scaffoldKey,
-      resizeToAvoidBottomInset: true,
+      key: sK,
       body: Container(
         color: colors[0],
-        height: MediaQuery.of(context).size.height,
+        height: MediaQuery.of(cx).size.height,
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -38,7 +34,7 @@ class LoginPage extends StatelessWidget {
                 "assets/missed.svg",
                 fit: BoxFit.cover,
                 alignment: Alignment.center,
-                height: MediaQuery.of(context).size.height / 1.9,
+                height: MediaQuery.of(cx).size.height / 1.9,
               ),
               Text(
                 "Trill",
@@ -69,9 +65,8 @@ class LoginPage extends StatelessWidget {
                   alignment: Alignment.center,
                   padding: EdgeInsets.all(10),
                   child: TextField(
-                    controller: nameController,
+                    controller: nC,
                     maxLength: 2,
-                    maxLines: 1,
                     textAlign: TextAlign.center,
                     decoration: InputDecoration(
                       border: InputBorder.none,
@@ -87,18 +82,14 @@ class LoginPage extends StatelessWidget {
       ),
       bottomNavigationBar: SafeArea(
         child: FlatButton(
-          clipBehavior: Clip.antiAlias,
           child: Text(
             "Start",
             textScaleFactor: 2,
             style: TextStyle(
               color: Colors.black,
-              fontWeight: FontWeight.bold,
             ),
           ),
-          onPressed: () {
-            startApp(context);
-          },
+          onPressed: () => start(cx),
         ),
       ),
     );

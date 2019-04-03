@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class HomeBottom extends StatefulWidget {
+class HB extends StatefulWidget {
   final sendData;
 
-  HomeBottom({this.sendData});
+  HB({this.sendData});
 
   @override
-  _HomeBottomState createState() => _HomeBottomState();
+  _HBState createState() => _HBState();
 }
 
-class _HomeBottomState extends State<HomeBottom> {
+class _HBState extends State<HB> {
   TextEditingController messageController;
   @override
   void initState() {
@@ -29,15 +29,15 @@ class _HomeBottomState extends State<HomeBottom> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    var myBottom = Theme(
+  Widget build(BuildContext ctx) {
+    return Theme(
       data: ThemeData(
         primaryColor: Colors.black,
         accentColor: Colors.black,
         cursorColor: Colors.black,
       ),
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.1,
+        height: MediaQuery.of(ctx).size.height * 0.1,
         color: Colors.transparent,
         padding: EdgeInsets.symmetric(
           horizontal: 20,
@@ -81,7 +81,5 @@ class _HomeBottomState extends State<HomeBottom> {
         ),
       ),
     );
-
-    return myBottom;
   }
 }

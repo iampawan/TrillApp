@@ -1,42 +1,34 @@
-import 'dart:typed_data';
+import 'index.dart';
 
-import 'package:chirpsdk/chirpsdk.dart';
-import 'package:flutter/material.dart';
-import 'package:simple_permissions/simple_permissions.dart';
-import 'package:trillapp/ui/pages/home/home_body.dart';
-import 'package:trillapp/ui/pages/home/message.dart';
-import 'package:trillapp/utils/constants.dart';
-import 'dart:convert';
-
-class HomePage extends StatefulWidget {
-  static const String route = "/home";
+class HP extends StatefulWidget {
+  static String route = "/home";
 
   @override
-  HomePageState createState() {
-    return HomePageState();
+  HPState createState() {
+    return HPState();
   }
 }
 
-class HomePageState extends State<HomePage> with WidgetsBindingObserver {
+class HPState extends State<HP> with WidgetsBindingObserver {
   ChirpState chirpState = ChirpState.not_created;
   String chirpErrors = '';
-  String chirpV = 'Unknown';
+  String chirpV = '?';
   Uint8List _chirpData = Uint8List(0);
-  String message = "Pawan Says:";
-  List<Message> messages;
+  String message = "";
+  List<M> messages;
 
   Future<void> _initChirp() async {
-    await ChirpSDK.init(Constants.appKey, Constants.appSecret);
+    await ChirpSDK.init(Const.appKey, Const.appSecret);
   }
 
   Future<void> _configureChirp() async {
-    await ChirpSDK.setConfig(Constants.appConfig);
+    await ChirpSDK.setConfig(Const.appConfig);
   }
 
   Future<void> _sendChirpData(String mes) async {
-    Message m = Message(userName: Constants.userName, message: mes);
+    M m = M(u: Const.un, m: mes);
     String identifier = jsonEncode(m);
-    var payload = new Uint8List.fromList(identifier.codeUnits);
+    var payload = Uint8List.fromList(identifier.codeUnits);
     setState(() {
       messages.add(m);
     });
@@ -49,13 +41,6 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   Future<void> _stopAudioProcessing() async {
     await ChirpSDK.stop();
-  }
-
-  Future<void> _getChirpVersion() async {
-    final String chirpVersion = await ChirpSDK.version;
-    setState(() {
-      chirpV = chirpVersion;
-    });
   }
 
   Future<void> _setChirpCallbacks() async {
@@ -76,9 +61,9 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
     });
     ChirpSDK.onReceived.listen((e) {
       _chirpData = e.payload;
-      var mes = new String.fromCharCodes(_chirpData);
+      var mes = String.fromCharCodes(_chirpData);
       try {
-        Message m = Message.fromJson(jsonDecode(mes));
+        M m = M.fromJson(jsonDecode(mes));
         setState(() {
           messages.add(m);
         });
@@ -105,10 +90,9 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
     _requestPermissions();
     _initChirp();
     _configureChirp();
-    _getChirpVersion();
     _setChirpCallbacks();
     _startAudioProcessing();
-    messages = List<Message>();
+    messages = List<M>();
   }
 
   @override
@@ -127,16 +111,13 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
   }
 
   @override
-  Widget build(BuildContext context) {
-    Widget homeScaffold = Scaffold(
-      resizeToAvoidBottomInset: true,
-      body: HomeBody(
+  Widget build(BuildContext c) {
+    return Scaffold(
+      body: B(
         chirpData: message,
         sentData: _sendChirpData,
         messageList: messages,
       ),
     );
-
-    return homeScaffold;
   }
 }

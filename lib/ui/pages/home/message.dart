@@ -1,17 +1,15 @@
-import 'package:meta/meta.dart';
+class M {
+  String u;
+  String m;
 
-class Message {
-  String userName;
-  String message;
+  M({this.u, this.m});
 
-  Message({@required this.userName, @required this.message});
+  M.fromJson(var json)
+      : this.u = json['u'],
+        this.m = json['m'];
 
-  Message.fromJson(Map<String, dynamic> json)
-      : this.userName = json['u'],
-        this.message = json['m'];
-
-  Map<String, dynamic> toJson() => {
-        "u": this.userName,
-        "m": this.message,
+  toJson() => {
+        "u": this.u,
+        "m": this.m,
       };
 }

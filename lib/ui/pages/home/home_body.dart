@@ -1,17 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:trillapp/ui/controls/wave_clipper.dart';
-import 'package:trillapp/ui/pages/home/home_bottom.dart';
-import 'package:trillapp/ui/pages/home/home_messagelist.dart';
-import 'package:trillapp/ui/pages/home/message.dart';
+import 'package:trillapp/ui/pages/index.dart';
 
-class HomeBody extends StatelessWidget {
+class B extends StatelessWidget {
   final chirpData;
   final sentData;
-  final List<Message> messageList;
+  final List<M> messageList;
 
-  HomeBody({this.chirpData, this.sentData, this.messageList});
+  B({this.chirpData, this.sentData, this.messageList});
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext ctx) {
     var colors = List.from(Colors.primaries);
     colors.shuffle();
     var homeBody = Column(
@@ -20,7 +16,7 @@ class HomeBody extends StatelessWidget {
       children: <Widget>[
         ClipPath(
           child: Container(
-            height: MediaQuery.of(context).size.height * 0.32,
+            height: MediaQuery.of(ctx).size.height * 0.32,
             child: AppBar(
               backgroundColor: colors[0],
               title: Text(
@@ -42,14 +38,14 @@ class HomeBody extends StatelessWidget {
               centerTitle: true,
             ),
           ),
-          clipper: WaveClipper(),
+          clipper: WC(),
         ),
         Expanded(
-          child: HomeMessageList(
+          child: HM(
             messageList: messageList,
           ),
         ),
-        HomeBottom(
+        HB(
           sendData: sentData,
         )
       ],

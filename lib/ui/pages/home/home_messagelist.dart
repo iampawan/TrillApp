@@ -1,22 +1,21 @@
-import 'package:flutter/material.dart';
-import 'package:trillapp/ui/pages/home/message.dart';
+import 'package:trillapp/ui/pages/index.dart';
 
-class HomeMessageList extends StatelessWidget {
-  final List<Message> messageList;
-  HomeMessageList({this.messageList});
+class HM extends StatelessWidget {
+  final List<M> messageList;
+  HM({this.messageList});
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       itemBuilder: (ctx, i) {
         return ListTile(
           title: Text(
-            messageList[i].message,
+            messageList[i].m,
           ),
-          subtitle: Text("${messageList[i].userName} says:"),
+          subtitle: Text("${messageList[i].u} says:"),
           leading: CircleAvatar(
             backgroundColor: Colors.black,
             child: Text(
-              "${messageList[i].userName[0].toUpperCase()}",
+              "${messageList[i].u[0].toUpperCase()}",
               style: TextStyle(
                 color: Colors.white,
               ),
