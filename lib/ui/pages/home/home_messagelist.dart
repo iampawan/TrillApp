@@ -1,29 +1,25 @@
 import 'package:trillapp/ui/pages/index.dart';
 
 class HM extends StatelessWidget {
-  final List<M> messageList;
-  HM({this.messageList});
+  final List<M> mL;
+  HM({this.mL});
   @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemBuilder: (ctx, i) {
-        return ListTile(
-          title: Text(
-            messageList[i].m,
-          ),
-          subtitle: Text("${messageList[i].u} says:"),
-          leading: CircleAvatar(
-            backgroundColor: Colors.black,
-            child: Text(
-              "${messageList[i].u[0].toUpperCase()}",
-              style: TextStyle(
-                color: Colors.white,
+  Widget build(c) => ListView.builder(
+        itemBuilder: (c, i) => ListTile(
+              title: Text(
+                mL[i].m,
+              ),
+              subtitle: Text("${mL[i].u} says:"),
+              leading: CircleAvatar(
+                backgroundColor: Colors.black,
+                child: Text(
+                  "${mL[i].u[0]}",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
               ),
             ),
-          ),
-        );
-      },
-      itemCount: messageList.length,
-    );
-  }
+        itemCount: mL.length,
+      );
 }

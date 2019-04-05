@@ -4,12 +4,12 @@ class HP extends StatefulWidget {
   static String route = "/home";
 
   @override
-  HPState createState() {
-    return HPState();
+  HPS createState() {
+    return HPS();
   }
 }
 
-class HPState extends State<HP> with WidgetsBindingObserver {
+class HPS extends State<HP> with WidgetsBindingObserver {
   ChirpState chirpState = ChirpState.not_created;
   String chirpErrors = '';
   String chirpV = '?';
@@ -111,7 +111,7 @@ class HPState extends State<HP> with WidgetsBindingObserver {
   }
 
   @override
-  Widget build(BuildContext c) {
+  Widget build(c) {
     return Scaffold(
       body: B(
         chirpData: message,
