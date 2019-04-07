@@ -4,8 +4,15 @@ import 'dart:math';
 import 'dart:typed_data';
 import 'package:chirpsdk/chirpsdk.dart';
 import 'package:simple_permissions/simple_permissions.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
-main() => runApp(MaterialApp(home: HP()));
+main() => runApp(MaterialApp(
+      home: HP(),
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primaryColor: Colors.black,
+      ),
+    ));
 
 class HP extends StatefulWidget {
   HPS createState() => HPS();
@@ -31,7 +38,7 @@ class HPS extends State<HP> {
 
   initState() {
     super.initState();
-    un = "T${Random().nextInt(5)}";
+    un = "T${Random().nextInt(20)}";
     rP();
     iC();
   }
@@ -66,52 +73,72 @@ class HPS extends State<HP> {
   build(c) {
     var colors = List.from(Colors.primaries)..shuffle();
     return Scaffold(
-      body: Column(
-        children: [
-          ClipPath(
-            child: Container(
-                height: MediaQuery.of(c).size.height * 0.32,
-                child:
-                    AppBar(backgroundColor: colors[0], title: Text("Trill"))),
-            clipper: WC(),
+        body: Container(
+      color: colors[0][100],
+      child: Stack(
+        children: <Widget>[
+          SvgPicture.asset(
+            "assets/missed.svg",
+            fit: BoxFit.contain,
+            alignment: Alignment.center,
           ),
-          Expanded(
-            child: ListView.builder(
-              reverse: true,
-              itemBuilder: (c, i) => ListTile(
-                    title: Text(mess[i].m),
-                    leading: CircleAvatar(
-                      backgroundColor: colors[0],
-                      foregroundColor: Colors.white,
-                      child: Text("${mess[i].u}"),
-                    ),
-                  ),
-              itemCount: mess.length,
-            ),
-          ),
-          Container(
-            height: MediaQuery.of(c).size.height * 0.1,
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: TextField(
-              controller: mC,
-              maxLength: 15,
-              decoration: InputDecoration(
-                border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-                hintText: "Enter Message",
-                suffixIcon: IconButton(
-                  icon: Icon(Icons.send),
-                  onPressed: () {
-                    sCD(mC.text);
-                    mC.clear();
-                  },
+          Column(
+            children: [
+              ClipPath(
+                child: Container(
+                    height: MediaQuery.of(c).size.height * 0.32,
+                    child: AppBar(
+                        centerTitle: true,
+                        backgroundColor: colors[0],
+                        title: Text("Trill"))),
+                clipper: WC(),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  reverse: true,
+                  itemBuilder: (c, i) => ListTile(
+                        title: Text(
+                          mess[i].m,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        leading: CircleAvatar(
+                          backgroundColor: colors[0],
+                          foregroundColor: Colors.white,
+                          child: Text("${mess[i].u}"),
+                        ),
+                      ),
+                  itemCount: mess.length,
                 ),
               ),
-            ),
+              Container(
+                height: MediaQuery.of(c).size.height * 0.1,
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: TextField(
+                  autofocus: true,
+                  controller: mC,
+                  maxLength: 15,
+                  cursorColor: colors[0],
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    hintText: "Enter Message",
+                    suffixIcon: IconButton(
+                      icon: Icon(Icons.send),
+                      onPressed: () {
+                        sCD(mC.text);
+                        mC.clear();
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
-    );
+    ));
   }
 }
 
