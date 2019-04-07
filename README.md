@@ -6,6 +6,12 @@ There can be many use cases where you want to send some bytes of data but don't 
 
 - The App is running on both android & iOS real devices when I tested. Make sure to give microphone permission when it asks for it.
 
+## To build the apk use
+
+```
+flutter build apk --release --target-platform android-arm64
+```
+
 ### Screenshots
 
 <img src="ss1.JPG" height="300em" /> <img src="ss2.JPG" height="300em" />
