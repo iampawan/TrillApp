@@ -59,6 +59,7 @@ class HPS extends State<HP> {
 
   dispose() {
     stAP();
+    mC?.dispose();
     super.dispose();
   }
 
@@ -100,12 +101,10 @@ class HPS extends State<HP> {
                 hintText: "Enter Message",
                 suffixIcon: IconButton(
                   icon: Icon(Icons.send),
-                  onPressed: mC.text.isNotEmpty
-                      ? () {
-                          sCD(mC.text);
-                          mC.clear();
-                        }
-                      : null,
+                  onPressed: () {
+                    sCD(mC.text);
+                    mC.clear();
+                  },
                 ),
               ),
             ),
